@@ -1,0 +1,1 @@
+{"number_of_testcases": 2, "testcases": {"1": {"input_name": "1.in", "output_name": "1.out", "sha256_output": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"}, "2": {"input_name": "2.in", "output_name": "2.out", "sha256_output": "4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a"}}}

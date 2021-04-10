@@ -1,0 +1,253 @@
+2021-03-30 22:04:48,378 ERROR 
+Traceback (most recent call last):
+  File "/home/amir/Documents/Project/AOJ/new AOJ/AOJ/JudgeServer/server.py", line 17, in judge
+    result = JudgeServer.judge(**data)
+  File "/home/amir/Documents/Project/AOJ/new AOJ/AOJ/JudgeServer/judge.py", line 57, in judge
+    exe_path = Compiler.compile(src_path=src_path, compile_config=compile_config, output_dir=submission_dir)
+  File "/home/amir/Documents/Project/AOJ/new AOJ/AOJ/JudgeServer/compiler.py", line 33, in compile
+    raise CompileError(error)
+exception.CompileError
+2021-03-30 22:14:55,101 ERROR 
+Traceback (most recent call last):
+  File "/home/amir/Documents/Project/AOJ/new AOJ/AOJ/JudgeServer/judge.py", line 85, in _get_testcase_info
+    with open(os.path.join(self._testcase_dir, "info")) as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'AOJ/test_cases/012/info'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/amir/Documents/Project/AOJ/new AOJ/AOJ/JudgeServer/server.py", line 17, in judge
+    result = JudgeServer.judge(**data)
+  File "/home/amir/Documents/Project/AOJ/new AOJ/AOJ/JudgeServer/judge.py", line 60, in judge
+    max_cpu_time=max_cpu_time, max_output_size=max_ouput_size, max_real_time=max_real_time, max_memory=max_memory
+  File "/home/amir/Documents/Project/AOJ/new AOJ/AOJ/JudgeServer/judge.py", line 81, in __init__
+    self._testcase_info = self._get_testcase_info()
+  File "/home/amir/Documents/Project/AOJ/new AOJ/AOJ/JudgeServer/judge.py", line 88, in _get_testcase_info
+    raise JudgeRuntimeError("Test case not found")
+exception.JudgeRuntimeError
+2021-03-30 22:58:00,525 ERROR 
+Traceback (most recent call last):
+  File "/home/amir/Documents/Project/AOJ/new AOJ/AOJ/JudgeServer/judge.py", line 85, in _get_testcase_info
+    with open(os.path.join(self._testcase_dir, "info")) as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'AOJ/test_cases/012/info'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/amir/Documents/Project/AOJ/new AOJ/AOJ/JudgeServer/server.py", line 19, in judge
+    result = JudgeServer.judge(**data)
+  File "/home/amir/Documents/Project/AOJ/new AOJ/AOJ/JudgeServer/judge.py", line 60, in judge
+    max_cpu_time=max_cpu_time, max_output_size=max_ouput_size, max_real_time=max_real_time, max_memory=max_memory
+  File "/home/amir/Documents/Project/AOJ/new AOJ/AOJ/JudgeServer/judge.py", line 81, in __init__
+    self._testcase_info = self._get_testcase_info()
+  File "/home/amir/Documents/Project/AOJ/new AOJ/AOJ/JudgeServer/judge.py", line 88, in _get_testcase_info
+    raise JudgeRuntimeError("Test case not found")
+exception.JudgeRuntimeError
+2021-03-30 22:58:10,213 ERROR 
+Traceback (most recent call last):
+  File "/home/amir/Documents/Project/AOJ/new AOJ/AOJ/JudgeServer/judge.py", line 85, in _get_testcase_info
+    with open(os.path.join(self._testcase_dir, "info")) as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'AOJ/test_cases/012/info'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/amir/Documents/Project/AOJ/new AOJ/AOJ/JudgeServer/server.py", line 19, in judge
+    result = JudgeServer.judge(**data)
+  File "/home/amir/Documents/Project/AOJ/new AOJ/AOJ/JudgeServer/judge.py", line 60, in judge
+    max_cpu_time=max_cpu_time, max_output_size=max_ouput_size, max_real_time=max_real_time, max_memory=max_memory
+  File "/home/amir/Documents/Project/AOJ/new AOJ/AOJ/JudgeServer/judge.py", line 81, in __init__
+    self._testcase_info = self._get_testcase_info()
+  File "/home/amir/Documents/Project/AOJ/new AOJ/AOJ/JudgeServer/judge.py", line 88, in _get_testcase_info
+    raise JudgeRuntimeError("Test case not found")
+exception.JudgeRuntimeError
+2021-03-30 23:09:24,834 ERROR 
+Traceback (most recent call last):
+  File "/home/amir/Documents/Project/AOJ/new AOJ/AOJ/JudgeServer/judge.py", line 85, in _get_testcase_info
+    with open(os.path.join(self._testcase_dir, "info")) as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'AOJ/test_cases/012/info'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/amir/Documents/Project/AOJ/new AOJ/AOJ/JudgeServer/server.py", line 19, in judge
+    result = JudgeServer.judge(**data)
+  File "/home/amir/Documents/Project/AOJ/new AOJ/AOJ/JudgeServer/judge.py", line 60, in judge
+    max_cpu_time=max_cpu_time, max_output_size=max_ouput_size, max_real_time=max_real_time, max_memory=max_memory
+  File "/home/amir/Documents/Project/AOJ/new AOJ/AOJ/JudgeServer/judge.py", line 81, in __init__
+    self._testcase_info = self._get_testcase_info()
+  File "/home/amir/Documents/Project/AOJ/new AOJ/AOJ/JudgeServer/judge.py", line 88, in _get_testcase_info
+    raise JudgeRuntimeError("Test case not found")
+exception.JudgeRuntimeError
+2021-03-30 23:21:37,792 ERROR 
+Traceback (most recent call last):
+  File "/home/amir/Documents/Project/AOJ/new AOJ/AOJ/JudgeServer/server.py", line 19, in judge
+    result = JudgeServer.judge(**data)
+  File "/home/amir/Documents/Project/AOJ/new AOJ/AOJ/JudgeServer/judge.py", line 57, in judge
+    exe_path = Compiler.compile(src_path=src_path, compile_config=compile_config, output_dir=submission_dir)
+  File "/home/amir/Documents/Project/AOJ/new AOJ/AOJ/JudgeServer/compiler.py", line 33, in compile
+    raise CompileError(error)
+exception.CompileError
+2021-03-30 23:23:35,401 ERROR 
+Traceback (most recent call last):
+  File "/home/amir/Documents/Project/AOJ/new AOJ/AOJ/JudgeServer/server.py", line 19, in judge
+    result = JudgeServer.judge(**data)
+  File "/home/amir/Documents/Project/AOJ/new AOJ/AOJ/JudgeServer/judge.py", line 57, in judge
+    exe_path = Compiler.compile(src_path=src_path, compile_config=compile_config, output_dir=submission_dir)
+  File "/home/amir/Documents/Project/AOJ/new AOJ/AOJ/JudgeServer/compiler.py", line 33, in compile
+    raise CompileError(error)
+exception.CompileError
+2021-03-31 11:14:43,061 INFO DEBUG=ON
+2021-03-31 11:51:58,273 ERROR 
+Traceback (most recent call last):
+  File "/home/amir/Documents/Project/AOJ/new AOJ/AOJ/JudgeServer/server.py", line 19, in judge
+    result = JudgeServer.judge(**data)
+  File "/home/amir/Documents/Project/AOJ/new AOJ/AOJ/JudgeServer/judge.py", line 55, in judge
+    exe_path = Compiler.compile(src_path=src_path, compile_config=compile_config, output_dir=submission_dir)
+  File "/home/amir/Documents/Project/AOJ/new AOJ/AOJ/JudgeServer/compiler.py", line 33, in compile
+    raise CompileError(error)
+exception.CompileError
+2021-03-31 12:46:06,112 INFO DEBUG=ON
+2021-03-31 13:09:32,795 INFO DEBUG=ON
+2021-03-31 14:58:15,904 INFO DEBUG=ON
+2021-03-31 15:23:58,620 INFO DEBUG=ON
+2021-03-31 15:40:57,582 INFO DEBUG=ON
+2021-03-31 18:19:13,608 INFO DEBUG=ON
+2021-03-31 20:35:30,195 INFO DEBUG=ON
+2021-03-31 21:14:09,397 INFO DEBUG=ON
+2021-03-31 22:04:37,114 INFO DEBUG=ON
+2021-03-31 22:07:17,495 INFO DEBUG=ON
+2021-03-31 22:08:14,189 ERROR 
+Traceback (most recent call last):
+  File "/home/amir/Documents/Project/AOJ/new AOJ/AOJ/JudgeServer/server.py", line 19, in judge
+    result = JudgeServer.judge(**data)
+  File "/home/amir/Documents/Project/AOJ/new AOJ/AOJ/JudgeServer/judge.py", line 55, in judge
+    exe_path = Compiler.compile(src_path=src_path, compile_config=compile_config, output_dir=submission_dir)
+  File "/home/amir/Documents/Project/AOJ/new AOJ/AOJ/JudgeServer/compiler.py", line 33, in compile
+    raise CompileError(error)
+exception.CompileError
+2021-03-31 22:09:42,457 ERROR 
+Traceback (most recent call last):
+  File "/home/amir/Documents/Project/AOJ/new AOJ/AOJ/JudgeServer/server.py", line 19, in judge
+    result = JudgeServer.judge(**data)
+  File "/home/amir/Documents/Project/AOJ/new AOJ/AOJ/JudgeServer/judge.py", line 55, in judge
+    exe_path = Compiler.compile(src_path=src_path, compile_config=compile_config, output_dir=submission_dir)
+  File "/home/amir/Documents/Project/AOJ/new AOJ/AOJ/JudgeServer/compiler.py", line 33, in compile
+    raise CompileError(error)
+exception.CompileError
+2021-03-31 22:19:57,008 ERROR 
+Traceback (most recent call last):
+  File "/home/amir/Documents/Project/AOJ/new AOJ/AOJ/JudgeServer/server.py", line 19, in judge
+    result = JudgeServer.judge(**data)
+  File "/home/amir/Documents/Project/AOJ/new AOJ/AOJ/JudgeServer/judge.py", line 55, in judge
+    exe_path = Compiler.compile(src_path=src_path, compile_config=compile_config, output_dir=submission_dir)
+  File "/home/amir/Documents/Project/AOJ/new AOJ/AOJ/JudgeServer/compiler.py", line 33, in compile
+    raise CompileError(error)
+exception.CompileError
+2021-04-06 18:14:56,098 ERROR 
+Traceback (most recent call last):
+  File "/home/amir/Documents/Project/AOJ/new AOJ/AOJ/JudgeServer/server.py", line 19, in judge
+    result = JudgeServer.judge(**data)
+  File "/home/amir/Documents/Project/AOJ/new AOJ/AOJ/JudgeServer/judge.py", line 55, in judge
+    exe_path = Compiler.compile(src_path=src_path, compile_config=compile_config, output_dir=submission_dir)
+  File "/home/amir/Documents/Project/AOJ/new AOJ/AOJ/JudgeServer/compiler.py", line 33, in compile
+    raise CompileError(error)
+exception.CompileError
+2021-04-07 11:57:52,533 ERROR 
+Traceback (most recent call last):
+  File "/home/andalus/Documents/django/Andalus-EthCPC/JudgeServer/server.py", line 19, in judge
+    result = JudgeServer.judge(**data)
+  File "/home/andalus/Documents/django/Andalus-EthCPC/JudgeServer/judge.py", line 55, in judge
+    exe_path = Compiler.compile(src_path=src_path, compile_config=compile_config, output_dir=submission_dir)
+  File "/home/andalus/Documents/django/Andalus-EthCPC/JudgeServer/compiler.py", line 33, in compile
+    raise CompileError(error)
+exception.CompileError
+2021-04-07 14:34:05,700 ERROR 
+Traceback (most recent call last):
+  File "/home/andalus/Documents/django/Andalus-EthCPC/JudgeServer/server.py", line 19, in judge
+    result = JudgeServer.judge(**data)
+  File "/home/andalus/Documents/django/Andalus-EthCPC/JudgeServer/judge.py", line 55, in judge
+    exe_path = Compiler.compile(src_path=src_path, compile_config=compile_config, output_dir=submission_dir)
+  File "/home/andalus/Documents/django/Andalus-EthCPC/JudgeServer/compiler.py", line 33, in compile
+    raise CompileError(error)
+exception.CompileError
+2021-04-07 14:35:53,914 ERROR 
+Traceback (most recent call last):
+  File "/home/andalus/Documents/django/Andalus-EthCPC/JudgeServer/server.py", line 19, in judge
+    result = JudgeServer.judge(**data)
+  File "/home/andalus/Documents/django/Andalus-EthCPC/JudgeServer/judge.py", line 55, in judge
+    exe_path = Compiler.compile(src_path=src_path, compile_config=compile_config, output_dir=submission_dir)
+  File "/home/andalus/Documents/django/Andalus-EthCPC/JudgeServer/compiler.py", line 33, in compile
+    raise CompileError(error)
+exception.CompileError
+2021-04-07 14:39:05,524 ERROR 
+Traceback (most recent call last):
+  File "/home/andalus/Documents/django/Andalus-EthCPC/JudgeServer/server.py", line 19, in judge
+    result = JudgeServer.judge(**data)
+  File "/home/andalus/Documents/django/Andalus-EthCPC/JudgeServer/judge.py", line 55, in judge
+    exe_path = Compiler.compile(src_path=src_path, compile_config=compile_config, output_dir=submission_dir)
+  File "/home/andalus/Documents/django/Andalus-EthCPC/JudgeServer/compiler.py", line 33, in compile
+    raise CompileError(error)
+exception.CompileError
+2021-04-07 14:40:37,968 ERROR 
+Traceback (most recent call last):
+  File "/home/andalus/Documents/django/Andalus-EthCPC/JudgeServer/server.py", line 19, in judge
+    result = JudgeServer.judge(**data)
+  File "/home/andalus/Documents/django/Andalus-EthCPC/JudgeServer/judge.py", line 55, in judge
+    exe_path = Compiler.compile(src_path=src_path, compile_config=compile_config, output_dir=submission_dir)
+  File "/home/andalus/Documents/django/Andalus-EthCPC/JudgeServer/compiler.py", line 33, in compile
+    raise CompileError(error)
+exception.CompileError
+2021-04-07 14:43:03,571 ERROR 
+Traceback (most recent call last):
+  File "/home/andalus/Documents/django/Andalus-EthCPC/JudgeServer/server.py", line 19, in judge
+    result = JudgeServer.judge(**data)
+  File "/home/andalus/Documents/django/Andalus-EthCPC/JudgeServer/judge.py", line 55, in judge
+    exe_path = Compiler.compile(src_path=src_path, compile_config=compile_config, output_dir=submission_dir)
+  File "/home/andalus/Documents/django/Andalus-EthCPC/JudgeServer/compiler.py", line 33, in compile
+    raise CompileError(error)
+exception.CompileError
+2021-04-08 08:46:01,979 ERROR 
+Traceback (most recent call last):
+  File "/home/andalus/Documents/django/Andalus-EthCPC/JudgeServer/judge.py", line 83, in _get_testcase_info
+    return json.load(f)
+  File "/usr/lib/python3.6/json/__init__.py", line 299, in load
+    parse_constant=parse_constant, object_pairs_hook=object_pairs_hook, **kw)
+  File "/usr/lib/python3.6/json/__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "/usr/lib/python3.6/json/decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "/usr/lib/python3.6/json/decoder.py", line 355, in raw_decode
+    obj, end = self.scan_once(s, idx)
+json.decoder.JSONDecodeError: Expecting property name enclosed in double quotes: line 1 column 180 (char 179)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/andalus/Documents/django/Andalus-EthCPC/JudgeServer/server.py", line 19, in judge
+    result = JudgeServer.judge(**data)
+  File "/home/andalus/Documents/django/Andalus-EthCPC/JudgeServer/judge.py", line 58, in judge
+    max_cpu_time=max_cpu_time, max_output_size=max_output_size, max_real_time=max_real_time, max_memory=max_memory
+  File "/home/andalus/Documents/django/Andalus-EthCPC/JudgeServer/judge.py", line 78, in __init__
+    self._testcase_info = self._get_testcase_info()
+  File "/home/andalus/Documents/django/Andalus-EthCPC/JudgeServer/judge.py", line 87, in _get_testcase_info
+    raise JudgeRuntimeError("Bad test case config")
+exception.JudgeRuntimeError
+2021-04-08 11:13:59,688 ERROR 
+Traceback (most recent call last):
+  File "/home/andalus/Documents/django/Andalus-EthCPC/JudgeServer/server.py", line 19, in judge
+    result = JudgeServer.judge(**data)
+  File "/home/andalus/Documents/django/Andalus-EthCPC/JudgeServer/judge.py", line 55, in judge
+    exe_path = Compiler.compile(src_path=src_path, compile_config=compile_config, output_dir=submission_dir)
+  File "/home/andalus/Documents/django/Andalus-EthCPC/JudgeServer/compiler.py", line 33, in compile
+    raise CompileError(error)
+exception.CompileError
+2021-04-08 11:18:15,506 ERROR 
+Traceback (most recent call last):
+  File "/home/andalus/Documents/django/Andalus-EthCPC/JudgeServer/server.py", line 19, in judge
+    result = JudgeServer.judge(**data)
+  File "/home/andalus/Documents/django/Andalus-EthCPC/JudgeServer/judge.py", line 55, in judge
+    exe_path = Compiler.compile(src_path=src_path, compile_config=compile_config, output_dir=submission_dir)
+  File "/home/andalus/Documents/django/Andalus-EthCPC/JudgeServer/compiler.py", line 33, in compile
+    raise CompileError(error)
+exception.CompileError
