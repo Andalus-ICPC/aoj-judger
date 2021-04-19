@@ -20,9 +20,11 @@ def judge():
 		return {"success": True, "data": result, "error": None}
 	except (CompileError, TokenVerificationFailed, JudgeRuntimeError) as e:
 		logger.exception(e)
+		print(7777777777)
 		return {"success": False, "error": e.__class__.__name__, "message": e.message}
 	except Exception as e:
-		return {"error": e.__class__.__name__, "message": str(e)}
+		print(888888888888)
+		return {"success": False, "error": e.__class__.__name__, "message": str(e)}
 		
 
 @app.route('/info')
@@ -40,6 +42,7 @@ def upload():
 			# return {"error": "Duplicate testcase name", "message": "The testcase name already exists for problem %s" % request.form['testcase_id']}
 			shutil.rmtree(file_path)
 		f.save(zip_file_path)
+
 		try:
 			with ZipFile(zip_file_path, 'r') as zipObj:
 				zipObj.extractall(file_path)
@@ -49,8 +52,16 @@ def upload():
 			return {"error": e.__class__.__name__, "message": str(e)}
 		if os.path.exists(zip_file_path):
 			os.remove(zip_file_path)
-		return {"data": "upload successfull"}
+		return {"data": "upload successfully"}
 
+
+@app.route("/remove_testcase", methods=["POST"])
+def remove_testcase():
+	if request.method == 'POST':
+		file_path = os.path.join(TEST_CASE_DIR, request.form['testcase_id'])
+		if os.path.exists(file_path):
+			shutil.rmtree(file_path)
+		return {"data": "remove successfully"}
 
 
 if DEBUG:

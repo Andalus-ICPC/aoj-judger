@@ -53,7 +53,7 @@ class JudgeServer:
 			with open(src_path, "w", encoding="utf-8") as f:
 				f.write(src_code)
 			exe_path = Compiler.compile(src_path=src_path, compile_config=compile_config, output_dir=submission_dir)
-
+			
 			judger = Judger(exe_path=exe_path, run_config=run_config, test_case_dir=test_case_dir, submission_dir=submission_dir,
 									max_cpu_time=max_cpu_time, max_output_size=max_output_size, max_real_time=max_real_time, max_memory=max_memory
 			)
@@ -120,7 +120,17 @@ class Judger:
 		command = self._run_config
 		command = command.format(exe_path=self._exe_path).split(" ")
 		env = ["PATH=" + os.getenv("PATH")]
-
+		print(command)
+		# if command[0] == "/usr/bin/java":
+		# 	temp = command[4:]
+		# 	command = command[:4]
+		# 	command = [" ".join(command)]
+		# 	command.extend(temp)
+		# 	print(command)
+		print(user_code_output, input_testcase)
+		if command[0] == "/usr/bin/java":
+			command = [" ".join(command)]
+			print(command)
 		run_result = CommandRunner.run(
 					max_real_time=self._max_real_time,
 					max_cpu_time=self._max_cpu_time,
@@ -134,6 +144,7 @@ class Judger:
 					output_path=user_code_output,
 					error_path=user_code_output,
 				)
+		print(run_result)
 		user_sha256 = self._get_sha256(user_code_output)
 		if run_result['result'] == CommandRunner.SUCCESS:
 			testcase_sha256 = testcase['data']['sha256_output']

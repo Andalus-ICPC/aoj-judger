@@ -4,8 +4,8 @@ import CommandRunner
 import pwd
 import grp
 
-DEBUG = os.environ.get('DEBUG') == "1"
-
+# DEBUG = os.environ.get('DEBUG') == "1"
+DEBUG = 1
 
 BASE_DIR = 'AOJ'
 
@@ -42,7 +42,7 @@ language_config = {
       'compile': {
          "src_name": "solution.c",
          "exe_name": "solution",
-         "compile_command": "/usr/bin/gcc -DONLINE_JUDGE -O2 -w -fmax-errors=3 -std=c14 {src_path} -lm -o {exe_path}",
+         "compile_command": "/usr/bin/gcc -DONLINE_JUDGE -O2 -w -fmax-errors=3 -std=c11 {src_path} -lm -o {exe_path}",
       },
       'run': {
          'run_command': "{exe_path}"
@@ -75,9 +75,12 @@ language_config = {
          "compile_command": "/usr/bin/javac {src_path} -d {exe_path} -encoding UTF8"
       },
       'run' : {
-         'run_command': "/usr/bin/java -cp {exe_path} -XX:MaxRAM={max_memory}k -Djava.security.manager -Dfile.encoding=UTF-8 "
-                  #  "-Djava.security.policy==/etc/java_policy "
-                   "-Djava.awt.headless=true Main",
+         # 'run_command': "/usr/bin/java -cp {exe_path} -XX:MaxRAM={max_memory}k -Djava.security.manager -Dfile.encoding=UTF-8 "
+         #          #  "-Djava.security.policy==/etc/java_policy "
+         #           "-Djava.awt.headless=true Main",
+         'run_command': "/usr/bin/java -cp {exe_path} Input -Djava.security.manager -Dfile.encoding=UTF-8"
+         # 'run_command': "/usr/bin/java -cp {exe_path} Input"
+
       }
    }
 
