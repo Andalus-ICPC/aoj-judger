@@ -54,7 +54,7 @@ class JudgeServer:
 				f.write(src_code)
 			exe_path = Compiler.compile(src_path=src_path, compile_config=compile_config, output_dir=submission_dir)
 			
-			judger = Judger(exe_path=exe_path, run_config=run_config, test_case_dir=test_case_dir, submission_dir=submission_dir,
+			judger = Judger(exe_path=exe_path, run_config=run_config, test_case_dir=test_case_dir, submission_dir=submission_dir, submission_path=submission_id,
 									max_cpu_time=max_cpu_time, max_output_size=max_output_size, max_real_time=max_real_time, max_memory=max_memory
 			)
 			return judger.run()
@@ -65,12 +65,13 @@ def run_testcase(instance, testcase):
 
 
 class Judger:
-	def __init__(self, exe_path, run_config, test_case_dir, submission_dir,
+	def __init__(self, exe_path, run_config, test_case_dir, submission_dir, submission_path,
 					 max_cpu_time, max_output_size, max_real_time, max_memory):
 		self._exe_path = exe_path
 		self._run_config = run_config
 		self._testcase_dir = test_case_dir
 		self._submission_dir = submission_dir
+		self._submission_path = submission_path
 		self._max_cpu_time = max_cpu_time
 		self._max_output_size = max_output_size
 		self._max_real_time = max_real_time
@@ -120,17 +121,17 @@ class Judger:
 		command = self._run_config
 		command = command.format(exe_path=self._exe_path).split(" ")
 		env = ["PATH=" + os.getenv("PATH")]
-		print(command)
+		# print(command)
 		# if command[0] == "/usr/bin/java":
 		# 	temp = command[4:]
 		# 	command = command[:4]
 		# 	command = [" ".join(command)]
 		# 	command.extend(temp)
 		# 	print(command)
-		print(user_code_output, input_testcase)
+		# print(user_code_output, input_testcase)
 		if command[0] == "/usr/bin/java":
 			command = [" ".join(command)]
-			print(command)
+			# print(command)
 		run_result = CommandRunner.run(
 					max_real_time=self._max_real_time,
 					max_cpu_time=self._max_cpu_time,
@@ -144,7 +145,7 @@ class Judger:
 					output_path=user_code_output,
 					error_path=user_code_output,
 				)
-		print(run_result)
+		# print(run_result)
 		user_sha256 = self._get_sha256(user_code_output)
 		if run_result['result'] == CommandRunner.SUCCESS:
 			testcase_sha256 = testcase['data']['sha256_output']
@@ -160,6 +161,7 @@ class Judger:
 	def run(self):
 		result_objs = []
 		results = []
+		result_and_path = {"results": None, "user_output_path": None}
 		with Pool(psutil.cpu_count()) as pool:
 			for id, testcase in self._testcase_info['testcases'].items():
 				if 'sha256_output' not in testcase:
@@ -168,4 +170,6 @@ class Judger:
 			pool.close()
 			pool.join()
 			results = [result.get() for result in result_objs]
-		return results
+			result_and_path["result"] = results
+			result_and_path["user_output_path"] = self._submission_path
+		return result_and_path
