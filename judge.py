@@ -6,7 +6,7 @@ import json
 from multiprocessing import Pool
 import hashlib
 import psutil
-
+import math
 from config import language_config, TEST_CASE_DIR, WORKING_SPACE, DEBUG, JUDGER_LOG_PATH
 from exception import JudgeRuntimeError
 from compiler import Compiler
@@ -40,9 +40,9 @@ class WorkingEnv(object):
 
 
 class JudgeServer:
-	def judge(src_code, language, testcase_id, max_cpu_time=None, max_real_time=None, max_output_size=None, max_memory=CommandRunner.UNLIMITED ):
+	def judge(src_code, language, submission_id, testcase_id, absolute_error, max_cpu_time=None, max_real_time=None, max_output_size=None, max_memory=CommandRunner.UNLIMITED ):
 		# first step compile source code and get the returned executable path
-		submission_id = uuid.uuid4().hex
+		# submission_id = uuid.uuid4().hex
 		test_case_dir = os.path.join(TEST_CASE_DIR, testcase_id)
 		
 		with WorkingEnv(WORKING_SPACE, submission_id) as submission_dir:
@@ -54,8 +54,9 @@ class JudgeServer:
 				f.write(src_code)
 			exe_path = Compiler.compile(src_path=src_path, compile_config=compile_config, output_dir=submission_dir)
 			
-			judger = Judger(exe_path=exe_path, run_config=run_config, test_case_dir=test_case_dir, submission_dir=submission_dir, submission_path=submission_id,
-									max_cpu_time=max_cpu_time, max_output_size=max_output_size, max_real_time=max_real_time, max_memory=max_memory
+			judger = Judger(exe_path=exe_path, run_config=run_config, test_case_dir=test_case_dir, submission_dir=submission_dir,
+									max_cpu_time=max_cpu_time, max_output_size=max_output_size, max_real_time=max_real_time, max_memory=max_memory,
+									absolute_error=absolute_error
 			)
 			return judger.run()
 
@@ -65,17 +66,17 @@ def run_testcase(instance, testcase):
 
 
 class Judger:
-	def __init__(self, exe_path, run_config, test_case_dir, submission_dir, submission_path,
-					 max_cpu_time, max_output_size, max_real_time, max_memory):
+	def __init__(self, exe_path, run_config, test_case_dir, submission_dir,
+					 max_cpu_time, max_output_size, max_real_time, max_memory, absolute_error):
 		self._exe_path = exe_path
 		self._run_config = run_config
 		self._testcase_dir = test_case_dir
 		self._submission_dir = submission_dir
-		self._submission_path = submission_path
 		self._max_cpu_time = max_cpu_time
 		self._max_output_size = max_output_size
 		self._max_real_time = max_real_time
 		self._max_memory = max_memory
+		self._absolute_error = absolute_error
 		self._testcase_info = self._get_testcase_info()
 
 	def _get_testcase_info(self):
@@ -148,13 +149,67 @@ class Judger:
 		# print(run_result)
 		user_sha256 = self._get_sha256(user_code_output)
 		if run_result['result'] == CommandRunner.SUCCESS:
-			testcase_sha256 = testcase['data']['sha256_output']
-			testcase_result_accepted = user_sha256 == testcase_sha256
-			if not testcase_result_accepted:
-				run_result['result'] = CommandRunner.WRONG_ANSWER
+			if self._absolute_error <= 1e-20:
+				testcase_sha256 = testcase['data']['sha256_output']
+				testcase_result_accepted = user_sha256 == testcase_sha256
+				if not testcase_result_accepted:
+					run_result['result'] = CommandRunner.WRONG_ANSWER
+			else:
+				testcase_output_path = os.path.join(self._testcase_dir, testcase['data']["output_name"])
+				run_result['result'] = self.check_absolute_error(testcase_output_path, user_code_output, self._absolute_error)
 		run_result['testcase'] = testcase['id']
 		return run_result
 
+
+
+	def check_absolute_error(self, correct_answer_file, user_answer_file, error):
+		try:
+			correct_answer = open(correct_answer_file, 'r')
+			user_answer = open(user_answer_file, 'r')
+		except FileNotFoundError:
+			return CommandRunner.WRONG_ANSWER
+
+		correct_answer_list = []
+		user_answer_list = []
+		for j in correct_answer:
+			x = j.rstrip()
+			correct_answer_list.append(x)
+		for j in user_answer:
+			x = j.rstrip()
+			user_answer_list.append(x)
+		while correct_answer_list:
+			if correct_answer_list[-1]:
+				break
+			correct_answer_list.pop()
+
+		while user_answer_list:
+			if user_answer_list[-1]:
+				break
+			user_answer_list.pop()
+		correct_answer.close()
+		user_answer.close()
+
+		if correct_answer_list and not user_answer_list:
+			return CommandRunner.NO_OUTPUT
+		if len(correct_answer_list) != len(user_answer_list):
+			return CommandRunner.WRONG_ANSWER
+		for testcase_line, user_line in zip(correct_answer_list, user_answer_list):
+			correct_line = testcase_line.split()
+			user_answer_line = user_line.split()
+			if len(correct_line) != len(user_answer_line):
+				return CommandRunner.WRONG_ANSWER
+			for each_correct_answer, each_user_answer in zip(correct_line, user_answer_line):
+				if each_correct_answer == each_user_answer:
+					continue
+				try:
+					each_correct_answer = float(each_correct_answer)
+					each_user_answer = float(each_user_answer)
+				except ValueError:
+					return CommandRunner.WRONG_ANSWER
+				if math.fabs(each_correct_answer - each_user_answer) > error:
+					return CommandRunner.WRONG_ANSWER
+
+		return CommandRunner.SUCCESS
 
 
 
@@ -170,6 +225,6 @@ class Judger:
 			pool.close()
 			pool.join()
 			results = [result.get() for result in result_objs]
-			result_and_path["result"] = results
-			result_and_path["user_output_path"] = self._submission_path
-		return result_and_path
+			# result_and_path["result"] = results
+			# result_and_path["user_output_path"] = self._submission_path
+		return results
