@@ -49,12 +49,15 @@ class JudgeServer:
 			compile_config = language_config[language]['compile']
 			run_config = language_config[language]['run']['run_command']
 			src_path = os.path.join(submission_dir, compile_config['src_name'])
+			if language == "Java":
+				class_name = java_class_name_find(src_code)
+			else:
+				class_name = None
 			# write source code into file
 			with open(src_path, "w", encoding="utf-8") as f:
 				f.write(src_code)
 			exe_path = Compiler.compile(src_path=src_path, compile_config=compile_config, output_dir=submission_dir)
-			
-			judger = Judger(exe_path=exe_path, run_config=run_config, test_case_dir=test_case_dir, submission_dir=submission_dir,
+			judger = Judger(exe_path=exe_path, run_config=run_config, class_name=class_name, test_case_dir=test_case_dir, submission_dir=submission_dir,
 									max_cpu_time=max_cpu_time, max_output_size=max_output_size, max_real_time=max_real_time, max_memory=max_memory,
 									absolute_error=absolute_error
 			)
@@ -65,11 +68,37 @@ def run_testcase(instance, testcase):
 	return instance._judge(testcase)
 
 
+def java_class_name_find(source):
+
+	ind  = source.find('public static void main')
+	if ind == -1:
+		return None
+
+	text = source[:ind]
+	ind  = text.rfind('class')
+	if ind == -1:
+		return None
+
+	text = text[ind + len('class'):]
+
+	ind1  = text.find('{')
+	if ind == -1:
+		return None
+
+	class_name = text[:ind1]
+	class_name = class_name.replace(' ', '')
+	class_name = class_name.replace('\n', '')
+	if not class_name:
+		return None
+	return class_name
+
+
 class Judger:
-	def __init__(self, exe_path, run_config, test_case_dir, submission_dir,
+	def __init__(self, exe_path, run_config, class_name, test_case_dir, submission_dir,
 					 max_cpu_time, max_output_size, max_real_time, max_memory, absolute_error):
 		self._exe_path = exe_path
 		self._run_config = run_config
+		self._class_name = class_name
 		self._testcase_dir = test_case_dir
 		self._submission_dir = submission_dir
 		self._max_cpu_time = max_cpu_time
@@ -120,19 +149,12 @@ class Judger:
 		output_testcase = testcase["data"]['output_name']
 		user_code_output = os.path.join(self._submission_dir, testcase["id"] + '.out')
 		command = self._run_config
-		command = command.format(exe_path=self._exe_path).split(" ")
+		command = command.format(exe_path=self._exe_path, class_name=self._class_name).split(" ")
 		env = ["PATH=" + os.getenv("PATH")]
-		# print(command)
-		# if command[0] == "/usr/bin/java":
-		# 	temp = command[4:]
-		# 	command = command[:4]
-		# 	command = [" ".join(command)]
-		# 	command.extend(temp)
-		# 	print(command)
-		# print(user_code_output, input_testcase)
+		
+		_seccomp_rule = "general" #  general, c_cpp, c_cpp_file_io
 		if command[0] == "/usr/bin/java":
-			command = [" ".join(command)]
-			# print(command)
+			_seccomp_rule = None
 		run_result = CommandRunner.run(
 					max_real_time=self._max_real_time,
 					max_cpu_time=self._max_cpu_time,
@@ -145,6 +167,7 @@ class Judger:
 					input_path=input_testcase,
 					output_path=user_code_output,
 					error_path=user_code_output,
+					seccomp_rule=_seccomp_rule	
 				)
 		# print(run_result)
 		user_sha256 = self._get_sha256(user_code_output)
