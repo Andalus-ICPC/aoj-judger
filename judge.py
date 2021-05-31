@@ -57,6 +57,7 @@ class JudgeServer:
 			with open(src_path, "w", encoding="utf-8") as f:
 				f.write(src_code)
 			exe_path = Compiler.compile(src_path=src_path, compile_config=compile_config, output_dir=submission_dir)
+
 			judger = Judger(exe_path=exe_path, run_config=run_config, class_name=class_name, test_case_dir=test_case_dir, submission_dir=submission_dir,
 									max_cpu_time=max_cpu_time, max_output_size=max_output_size, max_real_time=max_real_time, max_memory=max_memory,
 									absolute_error=absolute_error
