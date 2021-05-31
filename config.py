@@ -4,6 +4,8 @@ import CommandRunner
 import pwd
 import grp
 
+# default_env = ["LANG=en_US.UTF-8", "LANGUAGE=en_US:en", "LC_ALL=en_US.UTF-8"]
+
 # DEBUG = os.environ.get('DEBUG') == "1"
 DEBUG = 1
 
@@ -71,17 +73,20 @@ language_config = {
    'Java': {
       'compile': {
          'src_name': 'solution.java',
-         'exe_name': 'solution.class',
+         'exe_name': 'solution',
          "compile_command": "/usr/bin/javac {src_path} -d {exe_path} -encoding UTF8"
       },
       'run' : {
-         # 'run_command': "/usr/bin/java -cp {exe_path} -XX:MaxRAM={max_memory}k -Djava.security.manager -Dfile.encoding=UTF-8 "
-         #          #  "-Djava.security.policy==/etc/java_policy "
-         #           "-Djava.awt.headless=true Main",
-         'run_command': "/usr/bin/java -cp {exe_path} Input -Djava.security.manager -Dfile.encoding=UTF-8"
-         # 'run_command': "/usr/bin/java -cp {exe_path} Input"
+         "run_command": "/usr/bin/java -cp {exe_path} {class_name} -Djava.security.manager -Dfile.encoding=UTF-8 -Djava.security.policy==/etc/java_policy -Djava.awt.headless=true"
 
       }
    }
 
 }
+
+
+# java version 11.0.11
+# gcc versoin 7.5.0
+# g++ version 7.5.0
+# python2 2.7.15
+# python3 3.6.9

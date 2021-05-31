@@ -1,6 +1,6 @@
 from flask import Flask, request
 import os, shutil
-
+import uuid
 from helpers import get_server_info, logger
 from judge import JudgeServer
 from submission import submission_detail
@@ -15,19 +15,17 @@ app.debug = DEBUG
 @app.route('/judge')
 def judge():
 	_token = request.headers.get("X-AOJ-Server-Token")
+	submission_dir = uuid.uuid4().hex
 	try:
 		data = request.json
-		result_and_path = JudgeServer.judge(**data)
-		result = result_and_path['result']
-		user_output_path = result_and_path['user_output_path']
-		return {"success": True, "data": result, "user_output_path": user_output_path, "error": None}
+		data["submission_id"] = submission_dir
+		result = JudgeServer.judge(**data)
+		return {"success": True, "data": result, "user_output_path": submission_dir, "error": None}
 	except (CompileError, TokenVerificationFailed, JudgeRuntimeError) as e:
 		logger.exception(e)
-		# print(7777777777)
-		return {"success": False, "error": e.__class__.__name__, "message": e.message, "user_output_path": None}
+		return {"success": False, "data": [], "error": e.__class__.__name__, "message": e.message, "user_output_path": submission_dir}
 	except Exception as e:
-		# print(888888888888)
-		return {"success": False, "error": e.__class__.__name__, "message": str(e), "user_output_path": None}
+		return {"success": False, "data": [], "error": e.__class__.__name__, "message": str(e), "user_output_path": submission_dir}
 		
 
 @app.route('/info')
@@ -42,7 +40,6 @@ def upload():
 		file_path = os.path.join(TEST_CASE_DIR, request.form['testcase_id'])
 		zip_file_path = os.path.join(TEST_CASE_DIR, 'temp_zip_folder')
 		if os.path.exists(file_path):
-			# return {"error": "Duplicate testcase name", "message": "The testcase name already exists for problem %s" % request.form['testcase_id']}
 			shutil.rmtree(file_path)
 		f.save(zip_file_path)
 
