@@ -1,5 +1,5 @@
 import os
-
+import sys
 import CommandRunner
 import pwd
 import grp
@@ -10,6 +10,7 @@ import grp
 DEBUG = 1
 
 BASE_DIR = 'AOJ'
+PYTHON_MINOR_VERSION = sys.version_info.minor
 
 LOG_BASE = os.path.join(BASE_DIR, 'log')
 WORKING_SPACE = os.path.join(BASE_DIR, 'working_space')
@@ -53,7 +54,7 @@ language_config = {
    'Python3': {
       'compile': {
          'src_name': 'solution.py',
-         'exe_name': '__pycache__/solution.cpython-36.pyc',
+         'exe_name': '__pycache__/solution.cpython-3%d.pyc' % PYTHON_MINOR_VERSION,
          'compile_command': "/usr/bin/python3 -m py_compile {src_path}"
       },
       'run': {
