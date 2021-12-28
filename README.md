@@ -1,4 +1,4 @@
-# Andalus JUdge Server Installation Guide
+# Andalus Judge Server Installation Guide
 
 This is a brief guide on how to install the Andalus Judge Server on your machine.
 
@@ -105,7 +105,7 @@ sudo apt-get install libseccomp-dev
 ```
 
 ```sh
-mkdir build && cd build && cmake .. && make && sudo make install && cd ..
+mkdir build && cmake . && make && sudo make install && cd ..
 ```
 
 ```sh
